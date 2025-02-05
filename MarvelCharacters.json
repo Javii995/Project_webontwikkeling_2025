@@ -1,0 +1,20 @@
+{
+    "characters": [
+      {
+        "name": "Adam Warlock",
+        "real_name": "Him",
+        "affiliation": "Guardians of the Galaxy",
+        "abilities": [
+          "Cosmic Energy Manipulation",
+          "Superhuman Strength",
+          "Flight",
+          "Matter Manipulation",
+          "Resurrection"
+        ],
+        "description": "Adam Warlock is een kunstmatig gecreëerd superwezen met immense krachten. Hij is een meester in kosmische energie en een sleutelfiguur in de strijd tegen het kwaad in het Marvel-universum.",
+        "image_url": "adam-warlock--550x309.jpg",
+        "first_appearance": "Fantastic Four #66 (1967)"
+      }
+    ]
+  }
+  
