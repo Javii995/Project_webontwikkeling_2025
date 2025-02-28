@@ -1,19 +1,299 @@
-{
-  "characters": [
-    {
-      "name": "Adam Warlock",
-      "real_name": "Him",
-      "affiliation": "Guardians of the Galaxy",
-      "abilities": [
-        "Cosmic Energy Manipulation",
-        "Superhuman Strength",
-        "Flight",
-        "Matter Manipulation",
-        "Resurrection"
-      ],
-      "description": "Adam Warlock is een kunstmatig gecreëerd superwezen met immense krachten. Hij is een meester in kosmische energie en een sleutelfiguur in de strijd tegen het kwaad in het Marvel-universum.",
-      "image_url": "https://github.com/Javii995/Project_webontwikkeling_2025/blob/main/Images/adam-warlock--550x309.jpg",
-      "first_appearance": "Fantastic Four #66 (1967)"
+[
+  {
+    "id": "CHAR-001",
+    "name": "Spider-Man",
+    "realName": "Peter Parker",
+    "description": "Een getalenteerde wetenschapper en student die na een beet van een radioactieve spin superkrachten kreeg en zich inzet voor gerechtigheid.",
+    "age": 25,
+    "isActive": true,
+    "birthDate": "1999-08-10",
+    "imageUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/Spider-Man_Hero_Portrait.webp",
+    "affiliation": "Avengers",
+    "powers": [
+      "Superhuman Strength",
+      "Wall-Crawling",
+      "Spider-Sense",
+      "Web-Shooting"
+    ],
+    "firstAppearance": "Amazing Fantasy #15 (1962)",
+    "team": {
+      "id": "TEAM-001",
+      "name": "Avengers",
+      "leader": "Captain America",
+      "headquarters": "Avengers Tower",
+      "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/avengers.jpg",
+      "foundedYear": 1963,
+      "motto": "Avengers, Assemble!"
     }
-  ]
-}
+  },
+  {
+    "id": "CHAR-002",
+    "name": "Iron Man",
+    "realName": "Tony Stark",
+    "description": "Een miljardair, uitvinder en filantroop die een hoogtechnologisch harnas gebruikt om de wereld te beschermen.",
+    "age": 45,
+    "isActive": false,
+    "birthDate": "1970-05-29",
+    "imageUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/Iron_Man_Hero_Portrait.webp",
+    "affiliation": "Avengers",
+    "powers": [
+      "Genius Intellect",
+      "Powered Armor Suit",
+      "Advanced AI Assistance",
+      "Energy Beams"
+    ],
+    "firstAppearance": "Tales of Suspense #39 (1963)",
+    "team": {
+      "id": "TEAM-001",
+      "name": "Avengers",
+      "leader": "Captain America",
+      "headquarters": "Avengers Tower",
+      "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/avengers.jpg",
+      "foundedYear": 1963,
+      "motto": "Avengers, Assemble!"
+    }
+  },
+  {
+    "id": "CHAR-003",
+    "name": "Wolverine",
+    "realName": "Logan",
+    "description": "Een mutant met genezende krachten, adamantium klauwen en een ontembaar karakter.",
+    "age": 150,
+    "isActive": true,
+    "birthDate": "1870-05-05",
+    "imageUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/Wolverine_Hero_Portrait.webp",
+    "affiliation": "X-Men",
+    "powers": [
+      "Regeneration",
+      "Superhuman Senses",
+      "Adamantium Claws",
+      "Enhanced Reflexes"
+    ],
+    "firstAppearance": "The Incredible Hulk #180 (1974)",
+    "team": {
+      "id": "TEAM-002",
+      "name": "X-Men",
+      "leader": "Professor X",
+      "headquarters": "X-Mansion",
+      "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/X-Men-logo-comics.png",
+      "foundedYear": 1963,
+      "motto": "Mutants for a Better Future"
+    }
+  },
+  {
+    "id": "CHAR-004",
+    "name": "Doctor Doom",
+    "realName": "Victor von Doom",
+    "description": "Een briljante wetenschapper en heerser van Latveria met een combinatie van magie en technologie.",
+    "age": 45,
+    "isActive": true,
+    "birthDate": "1979-07-02",
+    "imageUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/Dr_doom_rivalsart.webp",
+    "affiliation": "Villains",
+    "powers": [
+      "Genius-Level Intellect",
+      "Magic",
+      "Advanced Armor",
+      "Technological Mastery"
+    ],
+    "firstAppearance": "Fantastic Four #5 (1962)",
+    "team": {
+      "id": "TEAM-003",
+      "name": "Doom's Legion",
+      "leader": "Doctor Doom",
+      "headquarters": "Castle Doom",
+      "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/LOD.webp",
+      "foundedYear": 1980,
+      "motto": "Doom Shall Reign"
+    }
+  },
+  {
+    "id": "CHAR-005",
+    "name": "Thor",
+    "realName": "Thor Odinson",
+    "description": "De Noorse god van de donder en een van de machtigste helden van de Avengers.",
+    "age": 1500,
+    "isActive": true,
+    "birthDate": "500-01-01",
+    "imageUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/Thor_Hero_Portrait.webp",
+    "affiliation": "Avengers",
+    "powers": [
+      "Superhuman Strength",
+      "Mjolnir Control",
+      "Lightning Manipulation",
+      "Flight"
+    ],
+    "firstAppearance": "Journey into Mystery #83 (1962)",
+    "team": {
+      "id": "TEAM-001",
+      "name": "Avengers",
+      "leader": "Captain America",
+      "headquarters": "Avengers Tower",
+      "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/avengers.jpg",
+      "foundedYear": 1963,
+      "motto": "Avengers, Assemble!"
+    }
+  },
+  {
+    "id": "CHAR-006",
+    "name": "Deadpool",
+    "realName": "Wade Wilson",
+    "description": "Een huurling met een genezende factor en een scherp gevoel voor humor.",
+    "age": 35,
+    "isActive": true,
+    "birthDate": "1989-02-01",
+    "imageUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/Deadpool.webp",
+    "affiliation": "X-Force",
+    "powers": [
+      "Healing Factor",
+      "Enhanced Agility",
+      "Expert Marksman",
+      "Swords Mastery"
+    ],
+    "firstAppearance": "New Mutants #98 (1991)",
+    "team": {
+      "id": "TEAM-004",
+      "name": "X-Force",
+      "leader": "Cable",
+      "headquarters": "Unknown",
+      "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/X-Force29.webp",
+      "foundedYear": 1991,
+      "motto": "No Rules, Just Justice"
+    }
+  },
+  {
+    "id": "CHAR-007",
+    "name": "Black Panther",
+    "realName": "T'Challa",
+    "description": "De koning van Wakanda en een meester in geavanceerde technologie en vechttechnieken.",
+    "age": 35,
+    "isActive": true,
+    "birthDate": "1989-11-28",
+    "imageUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/Black_Panther_Hero_Portrait.webp",
+    "affiliation": "Avengers",
+    "powers": [
+      "Enhanced Strength",
+      "Vibranium Suit",
+      "Martial Arts Mastery",
+      "Enhanced Senses"
+    ],
+    "firstAppearance": "Fantastic Four #52 (1966)",
+    "team": {
+      "id": "TEAM-001",
+      "name": "Avengers",
+      "leader": "Captain America",
+      "headquarters": "Avengers Tower",
+      "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/avengers.jpg",
+      "foundedYear": 1963,
+      "motto": "Avengers, Assemble!"
+    }
+  },
+  {
+    "id": "CHAR-008",
+    "name": "Scarlet Witch",
+    "realName": "Wanda Maximoff",
+    "description": "Een van de machtigste mutanten met de gave om de realiteit te manipuleren met haar chaosmagie.",
+    "age": 32,
+    "isActive": true,
+    "birthDate": "1992-06-16",
+    "imageUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/Scarlet_Witch_Hero_Portrait.webp",
+    "affiliation": "Avengers",
+    "powers": [
+      "Reality Warping",
+      "Chaos Magic",
+      "Mind Control",
+      "Energy Projection"
+    ],
+    "firstAppearance": "X-Men #4 (1964)",
+    "team": {
+      "id": "TEAM-001",
+      "name": "Avengers",
+      "leader": "Captain America",
+      "headquarters": "Avengers Tower",
+      "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/avengers.jpg",
+      "foundedYear": 1963,
+      "motto": "Avengers, Assemble!"
+    }
+  },
+  {
+    "id": "CHAR-009",
+    "name": "Venom",
+    "realName": "Eddie Brock",
+    "description": "Een symbioot die een gevaarlijke bond vormt met zijn gastheer en enorme krachten bezit.",
+    "age": 40,
+    "isActive": true,
+    "birthDate": "1984-05-25",
+    "imageUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/Venom_Hero_Portrait.webp",
+    "affiliation": "Villains",
+    "powers": [
+      "Superhuman Strength",
+      "Shapeshifting",
+      "Web-Shooting",
+      "Regeneration"
+    ],
+    "firstAppearance": "The Amazing Spider-Man #300 (1988)",
+    "team": {
+      "id": "TEAM-005",
+      "name": "Sinister Six",
+      "leader": "Doctor Octopus",
+      "headquarters": "Underground Lair",
+      "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/sinister-six.png",
+      "foundedYear": 1964,
+      "motto": "Together We Crush"
+    }
+  },
+  {
+    "id": "CHAR-010",
+    "name": "Hulk",
+    "realName": "Bruce Banner",
+    "description": "Een wetenschapper die, wanneer hij boos wordt, verandert in een bijna onstopbare groene reus.",
+    "age": 50,
+    "isActive": true,
+    "birthDate": "1974-12-18",
+    "imageUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/Hulk_Hero_Portrait.webp",
+    "affiliation": "Avengers",
+    "powers": [
+      "Superhuman Strength",
+      "Regeneration",
+      "Thunderclap",
+      "Limitless Rage Power"
+    ],
+    "firstAppearance": "The Incredible Hulk #1 (1962)",
+    "team": {
+      "id": "TEAM-001",
+      "name": "Avengers",
+      "leader": "Captain America",
+      "headquarters": "Avengers Tower",
+      "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/avengers.jpg",
+      "foundedYear": 1963,
+      "motto": "Avengers, Assemble!"
+    }
+  },
+  {
+    "id": "CHAR-011",
+    "name": "Winter Soldier",
+    "realName": "Bucky Barnes",
+    "description": "Een voormalig beste vriend van Captain America, getransformeerd in een meedogenloze huurmoordenaar door Hydra, maar later verlost en een antiheld geworden.",
+    "age": 106,
+    "isActive": true,
+    "birthDate": "1917-03-10",
+    "imageUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/Winter_Soldier_Hero_Portrait.webp",
+    "affiliation": "Thunderbolts",
+    "powers": [
+      "Superhuman Strength",
+      "Cybernetic Arm",
+      "Expert Marksman",
+      "Master Hand-to-Hand Combatant"
+    ],
+    "firstAppearance": "Captain America Comics #1 (1941)",
+    "team": {
+      "id": "TEAM-006",
+      "name": "Thunderbolts",
+      "leader": "Baron Zemo",
+      "headquarters": "Secret Base",
+      "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/thunderbolts.png",
+      "foundedYear": 1997,
+      "motto": "Justice, By Any Means"
+    }
+  }
+]

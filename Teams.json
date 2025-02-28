@@ -1,0 +1,56 @@
+[
+    {
+        "id": "TEAM-001",
+        "name": "Avengers",
+        "leader": "Captain America",
+        "headquarters": "Avengers Tower",
+        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/avengers-logo.jpg",
+        "foundedYear": 1963,
+        "motto": "Avengers, Assemble!"
+    },
+    {
+        "id": "TEAM-002",
+        "name": "X-Men",
+        "leader": "Professor X",
+        "headquarters": "X-Mansion",
+        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/x-men-logo.jpg",
+        "foundedYear": 1963,
+        "motto": "Mutants for a Better Future"
+    },
+    {
+        "id": "TEAM-003",
+        "name": "Doom's Legion",
+        "leader": "Doctor Doom",
+        "headquarters": "Castle Doom",
+        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/doom-legion-logo.jpg",
+        "foundedYear": 1980,
+        "motto": "Doom Shall Reign"
+    },
+    {
+        "id": "TEAM-004",
+        "name": "X-Force",
+        "leader": "Cable",
+        "headquarters": "Unknown",
+        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/x-force-logo.jpg",
+        "foundedYear": 1991,
+        "motto": "No Rules, Just Justice"
+    },
+    {
+        "id": "TEAM-005",
+        "name": "Sinister Six",
+        "leader": "Doctor Octopus",
+        "headquarters": "Underground Lair",
+        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/sinister-six-logo.jpg",
+        "foundedYear": 1964,
+        "motto": "Together We Crush"
+    },
+    {
+        "id": "TEAM-006",
+        "name": "Thunderbolts",
+        "leader": "Baron Zemo",
+        "headquarters": "Secret Base",
+        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/thunderbolts-logo.jpg",
+        "foundedYear": 1997,
+        "motto": "Justice, By Any Means"
+    }
+]
