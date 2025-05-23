@@ -22,3 +22,22 @@ export interface Character {
     firstAppearance: string;
     team: Team;
 }
+
+// Query interfaces for type safety
+export interface CharacterQuery {
+    search?: string;
+    sortBy?: keyof Character | 'team';
+    sortOrder?: 'asc' | 'desc';
+}
+
+export interface TeamQuery {
+    sortBy?: keyof Team;
+    sortOrder?: 'asc' | 'desc';
+}
+
+// Response interfaces
+export interface ApiResponse<T> {
+    success: boolean;
+    data?: T;
+    error?: string;
+}

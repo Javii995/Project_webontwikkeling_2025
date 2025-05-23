@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> | Marvel Rivals</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
+                <%- include('../partials/sidebar') %>
+            </nav>
+            
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2"><%= character.name %> - Character Details</h1>
+                    <div>
+                        <a href="/characters/<%= character.id %>/edit" class="btn btn-warning me-2">
+                            <i class="bi bi-pencil-square me-2"></i>Edit Character
+                        </a>
+                        <a href="/characters" class="btn btn-back">
+                            <i class="bi bi-arrow-left me-2"></i>Back to Characters
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Character Detail Header -->
+                <div class="character-detail-header">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 text-center">
+                            <img src="<%= character.imageUrl %>" 
+                                 alt="<%= character.name %>" 
+                                 class="character-detail-image img-fluid">
+                        </div>
+                        <div class="col-md-8">
+                            <h2 class="display-5 fw-bold text-primary"><%= character.name %></h2>
+                            <h4 class="text-muted mb-3"><%= character.realName %></h4>
+                            <p class="lead"><%= character.description %></p>
+                            
+                            <div class="row mt-4">
+                                <div class="col-sm-6">
+                                    <strong>Age:</strong> <%= character.age %> years old<br>
+                                    <strong>Birth Date:</strong> <%= new Date(character.birthDate).toLocaleDateString() %><br>
+                                    <strong>First Appearance:</strong> <%= character.firstAppearance %>
+                                </div>
+                                <div class="col-sm-6">
+                                    <strong>Status:</strong> 
+                                    <span class="<%= character.isActive ? 'status-active' : 'status-inactive' %>">
+                                        <i class="bi bi-circle-fill me-1"></i>
+                                        <%= character.isActive ? 'Active' : 'Inactive' %>
+                                    </span><br>
+                                    <strong>Affiliation:</strong> 
+                                    <span class="badge bg-<%= character.affiliation === 'Villains' ? 'danger' : 'primary' %> fs-6">
+                                        <%= character.affiliation %>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Powers Section -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-lightning-charge me-2"></i>Powers & Abilities</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="powers-list">
+                            <% character.powers.forEach(power => { %>
+                                <span class="power-badge"><%= power %></span>
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Information -->
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="bi bi-shield me-2"></i>Team Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-2 text-center">
+                                <img src="<%= character.team.teamLogoUrl %>" 
+                                     alt="<%= character.team.name %>" 
+                                     class="team-logo">
+                            </div>
+                            <div class="col-md-10">
+                                <h6 class="mb-2">
+                                    <a href="/teams/<%= character.team.id %>" class="text-decoration-none">
+                                        <%= character.team.name %>
+                                    </a>
+                                </h6>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <strong>Leader:</strong> <%= character.team.leader %><br>
+                                        <strong>Headquarters:</strong> <%= character.team.headquarters %>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <strong>Founded:</strong> <%= character.team.foundedYear %><br>
+                                        <strong>Motto:</strong> "<%= character.team.motto %>"
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <a href="/teams/<%= character.team.id %>" class="btn btn-info btn-sm">
+                                        <i class="bi bi-arrow-right me-1"></i>View Team Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Members Section -->
+                <% if (teamMembers.length > 0) { %>
+                    <div class="card">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0"><i class="bi bi-people me-2"></i>Other Team Members</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <% teamMembers.forEach(member => { %>
+                                    <div class="col-md-6 col-lg-4 mb-3">
+                                        <div class="team-member-card p-3">
+                                            <div class="d-flex align-items-center">
+                                                <img src="<%= member.imageUrl %>" 
+                                                     alt="<%= member.name %>" 
+                                                     class="rounded me-3"
+                                                     style="width: 60px; height: 60px; object-fit: cover;">
+                                                <div class="flex-grow-1">
+                                                    <h6 class="mb-1">
+                                                        <a href="/characters/<%= member.id %>" class="text-decoration-none">
+                                                            <%= member.name %>
+                                                        </a>
+                                                    </h6>
+                                                    <small class="text-muted"><%= member.realName %></small><br>
+                                                    <span class="badge bg-<%= member.isActive ? 'success' : 'secondary' %> badge-sm">
+                                                        <%= member.isActive ? 'Active' : 'Inactive' %>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/main.js"></script>
+</body>
+</html>

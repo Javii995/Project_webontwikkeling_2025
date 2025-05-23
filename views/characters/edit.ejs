@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> | Marvel Rivals</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
+                <%- include('../partials/sidebar') %>
+            </nav>
+            
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Edit Character: <%= character.name %></h1>
+                    <div>
+                        <a href="/characters/<%= character.id %>" class="btn btn-secondary me-2">
+                            <i class="bi bi-arrow-left me-1"></i>Cancel
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Character Preview -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <img src="<%= character.imageUrl %>" 
+                             alt="<%= character.name %>" 
+                             class="img-fluid rounded character-detail-image">
+                    </div>
+                    <div class="col-md-9">
+                        <h3 class="text-primary"><%= character.name %></h3>
+                        <p class="text-muted"><%= character.realName %></p>
+                        <p><%= character.description %></p>
+                    </div>
+                </div>
+
+                <!-- Edit Form -->
+                <div class="card">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0"><i class="bi bi-pencil-square me-2"></i>Edit Character Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="/characters/<%= character.id %>/edit">
+                            <div class="row">
+                                <!-- Character Name -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">
+                                        <i class="bi bi-person me-1"></i>Character Name *
+                                    </label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="name" 
+                                           name="name" 
+                                           value="<%= character.name %>" 
+                                           required>
+                                    <div class="form-text">The superhero name (e.g., Spider-Man)</div>
+                                </div>
+
+                                <!-- Real Name -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="realName" class="form-label">
+                                        <i class="bi bi-person-badge me-1"></i>Real Name *
+                                    </label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="realName" 
+                                           name="realName" 
+                                           value="<%= character.realName %>" 
+                                           required>
+                                    <div class="form-text">The civilian identity (e.g., Peter Parker)</div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- Age -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="age" class="form-label">
+                                        <i class="bi bi-calendar me-1"></i>Age *
+                                    </label>
+                                    <input type="number" 
+                                           class="form-control" 
+                                           id="age" 
+                                           name="age" 
+                                           value="<%= character.age %>" 
+                                           min="0" 
+                                           max="10000" 
+                                           required>
+                                    <div class="form-text">Age in years (0-10000)</div>
+                                </div>
+
+                                <!-- Active Status -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="isActive" class="form-label">
+                                        <i class="bi bi-toggle-on me-1"></i>Active Status *
+                                    </label>
+                                    <select class="form-select" id="isActive" name="isActive" required>
+                                        <option value="">Choose status...</option>
+                                        <option value="true" <%= character.isActive ? 'selected' : '' %>>
+                                            ✅ Active - Currently operating
+                                        </option>
+                                        <option value="false" <%= !character.isActive ? 'selected' : '' %>>
+                                            ❌ Inactive - Retired/Dead/Missing
+                                        </option>
+                                    </select>
+                                    <div class="form-text">Current operational status</div>
+                                </div>
+                            </div>
+
+                            <!-- Affiliation -->
+                            <div class="mb-4">
+                                <label for="affiliation" class="form-label">
+                                    <i class="bi bi-shield-check me-1"></i>Affiliation *
+                                </label>
+                                <select class="form-select" id="affiliation" name="affiliation" required>
+                                    <option value="">Choose affiliation...</option>
+                                    <option value="Avengers" <%= character.affiliation === 'Avengers' ? 'selected' : '' %>>
+                                        🦸‍♂️ Avengers - Earth's Mightiest Heroes
+                                    </option>
+                                    <option value="X-Men" <%= character.affiliation === 'X-Men' ? 'selected' : '' %>>
+                                        🧬 X-Men - Mutant Heroes
+                                    </option>
+                                    <option value="X-Force" <%= character.affiliation === 'X-Force' ? 'selected' : '' %>>
+                                        ⚔️ X-Force - Militant Mutant Team
+                                    </option>
+                                    <option value="Thunderbolts" <%= character.affiliation === 'Thunderbolts' ? 'selected' : '' %>>
+                                        ⚡ Thunderbolts - Reformed Villains
+                                    </option>
+                                    <option value="Villains" <%= character.affiliation === 'Villains' ? 'selected' : '' %>>
+                                        🦹‍♂️ Villains - Bad Guys
+                                    </option>
+                                    <option value="Independent" <%= character.affiliation === 'Independent' ? 'selected' : '' %>>
+                                        🚶‍♂️ Independent - Solo Operator
+                                    </option>
+                                </select>
+                                <div class="form-text">Choose the character's primary allegiance</div>
+                            </div>
+
+                            <!-- Current Values Display -->
+                            <div class="alert alert-info">
+                                <h6><i class="bi bi-info-circle me-1"></i>Current Information (Read-Only)</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <small>
+                                            <strong>Birth Date:</strong> <%= new Date(character.birthDate).toLocaleDateString() %><br>
+                                            <strong>First Appearance:</strong> <%= character.firstAppearance %><br>
+                                            <strong>Team:</strong> <%= character.team.name %>
+                                        </small>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <small>
+                                            <strong>Powers:</strong> <%= character.powers.join(', ') %><br>
+                                            <strong>Team Leader:</strong> <%= character.team.leader %><br>
+                                            <strong>Headquarters:</strong> <%= character.team.headquarters %>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Form Actions -->
+                            <div class="d-flex justify-content-between">
+                                <a href="/characters/<%= character.id %>" class="btn btn-secondary">
+                                    <i class="bi bi-x-circle me-1"></i>Cancel
+                                </a>
+                                <button type="submit" class="btn btn-warning">
+                                    <i class="bi bi-check-circle me-1"></i>Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Help Text -->
+                <div class="mt-4 text-muted small">
+                    <p><i class="bi bi-lightbulb me-1"></i><strong>Note:</strong> 
+                    Fields marked with * are required. Only basic character information can be edited. 
+                    Powers, team membership, and historical data cannot be modified.</p>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/main.js"></script>
+</body>
+</html>

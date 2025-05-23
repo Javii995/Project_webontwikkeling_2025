@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> | Marvel Rivals</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('partials/navbar') %>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
+                <%- include('partials/sidebar') %>
+            </nav>
+            
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="padding-top: 0.25rem !important;">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom" style="padding-top: 0 !important; margin-top: 0 !important;">
+                    <h1 class="h2" style="margin-top: 0 !important;">Marvel Rivals Dashboard</h1>
+                </div>
+                
+                <!-- Hero Section -->
+                <div class="hero-section bg-primary text-white p-5 rounded mb-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h2 class="display-4 fw-bold">Welcome to Marvel Rivals</h2>
+                            <p class="lead">Explore your favorite Marvel characters and their legendary teams. Discover powers, affiliations, and epic stories.</p>
+                            <div class="mt-3">
+                                <a href="/characters" class="btn btn-light btn-lg me-3">
+                                    <i class="bi bi-people me-2"></i>Browse Characters
+                                </a>
+                                <a href="/teams" class="btn btn-outline-light btn-lg">
+                                    <i class="bi bi-shield me-2"></i>View Teams
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="bi bi-lightning-charge" style="font-size: 8rem; opacity: 0.7;"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Stats Cards -->
+                <div class="row mb-4">
+                    <div class="col-md-6 col-lg-3 mb-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-people" style="font-size: 2rem;"></i>
+                                    <div class="ms-3">
+                                        <h5 class="card-title mb-0">Characters</h5>
+                                        <h3 class="mb-0">11</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-3 mb-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-shield" style="font-size: 2rem;"></i>
+                                    <div class="ms-3">
+                                        <h5 class="card-title mb-0">Teams</h5>
+                                        <h3 class="mb-0">6</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-3 mb-3">
+                        <div class="card bg-warning text-dark">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-star-fill" style="font-size: 2rem;"></i>
+                                    <div class="ms-3">
+                                        <h5 class="card-title mb-0">Active Heroes</h5>
+                                        <h3 class="mb-0">9</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-3 mb-3">
+                        <div class="card bg-danger text-white">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-lightning" style="font-size: 2rem;"></i>
+                                    <div class="ms-3">
+                                        <h5 class="card-title mb-0">Powers</h5>
+                                        <h3 class="mb-0">40+</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Featured Section -->
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0"><i class="bi bi-star me-2"></i>Featured Characters</h5>
+                            </div>
+                            <div class="card-body">
+                                <p>Discover powerful heroes like Spider-Man, Thor, and Wolverine with their unique abilities and compelling backstories.</p>
+                                <a href="/characters" class="btn btn-primary">View All Characters</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0"><i class="bi bi-collection me-2"></i>Epic Teams</h5>
+                            </div>
+                            <div class="card-body">
+                                <p>Explore legendary teams like the Avengers, X-Men, and their missions to protect the world from evil forces.</p>
+                                <a href="/teams" class="btn btn-info">View All Teams</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/main.js"></script>
+</body>
+</html>
