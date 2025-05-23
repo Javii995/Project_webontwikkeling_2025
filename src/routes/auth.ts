@@ -4,6 +4,39 @@ import { omleidenAlsIngelogd } from '../middleware/auth';
 
 const router = express.Router();
 
+// Handle login
+router.post('/login', omleidenAlsIngelogd, async (req: Request, res: Response) => {
+    const { username, password } = req.body;
+
+    console.log('🔍 Login poging voor:', username);
+
+    if (!username || !password) {
+        console.log('❌ Lege velden');
+        return res.render('auth/login', {
+            title: 'Inloggen',
+            currentPage: 'login',
+            error: 'Vul beide velden in.'
+        });
+    }
+
+    // Proberen in te loggen met de auth service
+    console.log('🔍 Zoeken naar gebruiker...');
+    const gebruiker = await authService.logIn(username, password);
+    console.log('🔍 Gebruiker gevonden:', gebruiker ? 'JA' : 'NEE');
+
+    if (!gebruiker) {
+        console.log('❌ Login mislukt');
+        return res.render('auth/login', {
+            title: 'Inloggen',
+            currentPage: 'login',
+            error: 'Verkeerde gebruikersnaam of wachtwoord.'
+        });
+    }
+
+    console.log('✅ Login gelukt, sessie maken...');
+    // rest van je code...
+});
+
 // Login pagina tonen
 router.get('/login', omleidenAlsIngelogd, (req: Request, res: Response) => {
     res.render('auth/login', {
