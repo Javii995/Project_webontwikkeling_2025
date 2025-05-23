@@ -4,7 +4,7 @@
         "name": "Avengers",
         "leader": "Captain America",
         "headquarters": "Avengers Tower",
-        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/avengers-logo.jpg",
+        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/avengers.jpg",
         "foundedYear": 1963,
         "motto": "Avengers, Assemble!"
     },
@@ -13,7 +13,7 @@
         "name": "X-Men",
         "leader": "Professor X",
         "headquarters": "X-Mansion",
-        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/x-men-logo.jpg",
+        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/x-men.jpg",
         "foundedYear": 1963,
         "motto": "Mutants for a Better Future"
     },
@@ -22,7 +22,7 @@
         "name": "Doom's Legion",
         "leader": "Doctor Doom",
         "headquarters": "Castle Doom",
-        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/doom-legion-logo.jpg",
+        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/doom-legion.jpg",
         "foundedYear": 1980,
         "motto": "Doom Shall Reign"
     },
@@ -31,7 +31,7 @@
         "name": "X-Force",
         "leader": "Cable",
         "headquarters": "Unknown",
-        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/x-force-logo.jpg",
+        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/x-force.jpg",
         "foundedYear": 1991,
         "motto": "No Rules, Just Justice"
     },
@@ -40,7 +40,7 @@
         "name": "Sinister Six",
         "leader": "Doctor Octopus",
         "headquarters": "Underground Lair",
-        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/sinister-six-logo.jpg",
+        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/sinister-six.jpg",
         "foundedYear": 1964,
         "motto": "Together We Crush"
     },
@@ -49,7 +49,7 @@
         "name": "Thunderbolts",
         "leader": "Baron Zemo",
         "headquarters": "Secret Base",
-        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/thunderbolts-logo.jpg",
+        "teamLogoUrl": "https://raw.githubusercontent.com/Javii995/Project_webontwikkeling_2025/main/Images/thunderbolts.jpg",
         "foundedYear": 1997,
         "motto": "Justice, By Any Means"
     }
