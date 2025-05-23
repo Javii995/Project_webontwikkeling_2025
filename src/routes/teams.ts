@@ -1,67 +1,66 @@
-import express, { Request, Response, Router } from 'express';
-import { Team, Character, TeamQuery } from '../interfaces';
+import express, { Request, Response } from 'express';
 import { dbService } from '../services/database';
 
-const router: Router = express.Router();
+const router = express.Router();
 
-// Teams overview page
-router.get('/', async (req: Request<{}, {}, {}, TeamQuery>, res: Response) => {
+// Overzichtspagina met alle teams
+router.get('/', async (req: Request, res: Response) => {
+    const sorteerVeld = req.query.sortBy as string || '';
+    const sorteerRichting = req.query.sortOrder as 'asc' | 'desc' || 'asc';
+
+    let teams;
+
     try {
-        const sortBy: string = req.query.sortBy || '';
-        const sortOrder: 'asc' | 'desc' = req.query.sortOrder || 'asc';
-
-        let teams: Team[];
-
-        if (sortBy) {
-            teams = await dbService.getTeamsSorted(sortBy, sortOrder);
+        if (sorteerVeld) {
+            teams = await dbService.haalTeamsOpGesorteerd(sorteerVeld, sorteerRichting);
         } else {
-            teams = await dbService.getAllTeams();
+            teams = await dbService.haalAlleTeamsOp();
         }
 
         res.render('teams/index', {
             title: 'Marvel Teams',
             teams,
             currentPage: 'teams',
-            sortBy: sortBy,
-            sortOrder: sortOrder
+            sortBy: sorteerVeld,
+            sortOrder: sorteerRichting
         });
     } catch (error) {
-        console.error('Error in teams route:', error);
+        console.error('Fout bij laden teams:', error);
         res.status(500).render('error', {
-            title: 'Error',
-            error: 'Failed to load teams',
+            title: 'Fout',
+            error: 'Kon teams niet laden',
             currentPage: 'teams'
         });
     }
 });
 
-// Team detail page
-router.get('/:id', async (req: Request<{ id: string }>, res: Response) => {
+// Laat team info zien en alle teamleden
+router.get('/:id', async (req: Request, res: Response) => {
     try {
-        const team: Team | null = await dbService.getTeamById(req.params.id);
+        const team = await dbService.vindTeamOpId(req.params.id);
 
         if (!team) {
             return res.status(404).render('error', {
-                title: 'Team Not Found',
-                error: 'The requested team could not be found.',
+                title: 'Team niet gevonden',
+                error: 'Dit team bestaat niet.',
                 currentPage: 'teams'
             });
         }
 
-        // Find all characters belonging to this team
-        const teamMembers: Character[] = await dbService.getCharactersByTeamId(team.id);
+        // Alle karakters van dit team ophalen om te laten zien
+        const teamleden = await dbService.haalKaraktersOpVanTeam(team.id);
 
         res.render('teams/detail', {
             title: `${team.name} - Team Details`,
             team,
-            teamMembers,
+            teamMembers: teamleden,
             currentPage: 'teams'
         });
     } catch (error) {
-        console.error('Error in team detail route:', error);
+        console.error('Fout bij laden team:', error);
         res.status(500).render('error', {
-            title: 'Error',
-            error: 'Failed to load team details',
+            title: 'Fout',
+            error: 'Kon team details niet laden',
             currentPage: 'teams'
         });
     }

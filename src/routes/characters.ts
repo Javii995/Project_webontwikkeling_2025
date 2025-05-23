@@ -1,182 +1,162 @@
-import express, { Request, Response, Router } from 'express';
-import { Character, Team, CharacterQuery } from '../interfaces';
+import express, { Request, Response } from 'express';
 import { dbService } from '../services/database';
+import { vereistAdmin } from '../middleware/auth';
 
-const router: Router = express.Router();
+const router = express.Router();
 
-// Overview page with table
-router.get('/', async (req: Request<{}, {}, {}, CharacterQuery>, res: Response) => {
+// Overzichtspagina met alle karakters in een tabel
+router.get('/', async (req: Request, res: Response) => {
+    const zoekterm = req.query.search as string || '';
+    const sorteerVeld = req.query.sortBy as string || '';
+    const sorteerRichting = req.query.sortOrder as 'asc' | 'desc' || 'asc';
+
+    let karakters;
+
     try {
-        const searchQuery: string = req.query.search || '';
-        const sortBy: string = req.query.sortBy || '';
-        const sortOrder: 'asc' | 'desc' = req.query.sortOrder || 'asc';
-
-        console.log('🔍 Search query received:', searchQuery);
-        console.log('📊 Sort by:', sortBy, 'Order:', sortOrder);
-
-        let characters: Character[];
-
-        // Get characters with search and sort
-        if (searchQuery) {
-            // Search in database
-            characters = await dbService.searchCharacters(searchQuery);
-            console.log('📊 Characters found by search:', characters.length);
-
-            // Apply sorting to search results if needed
-            if (sortBy) {
-                characters = await sortCharacters(characters, sortBy, sortOrder);
+        if (zoekterm) {
+            // Als er gezocht wordt, eerst zoeken en dan eventueel sorteren
+            karakters = await dbService.zoekKaracters(zoekterm);
+            if (sorteerVeld) {
+                // Zoekresultaten sorteren - dit doen we in het geheugen omdat het al gefilterde data is
+                karakters = sorteerKaracters(karakters, sorteerVeld, sorteerRichting);
             }
-        } else if (sortBy) {
-            // Get sorted characters from database
-            characters = await dbService.getCharactersSorted(sortBy, sortOrder);
+        } else if (sorteerVeld) {
+            karakters = await dbService.haalKaraktersOpGesorteerd(sorteerVeld, sorteerRichting);
         } else {
-            // Get all characters
-            characters = await dbService.getAllCharacters();
+            karakters = await dbService.haalAlleKaraktersOp();
         }
 
-        console.log('📊 Final character count:', characters.length);
-
         res.render('characters/index', {
-            title: 'Marvel Characters',
-            characters,
+            title: 'Marvel Karakters',
+            characters: karakters,
             currentPage: 'characters',
-            searchQuery: searchQuery,
-            sortBy: sortBy,
-            sortOrder: sortOrder
+            searchQuery: zoekterm,
+            sortBy: sorteerVeld,
+            sortOrder: sorteerRichting
         });
     } catch (error) {
-        console.error('Error in characters route:', error);
+        console.error('Fout bij laden karakters:', error);
         res.status(500).render('error', {
-            title: 'Error',
-            error: 'Failed to load characters',
+            title: 'Fout',
+            error: 'Kon karakters niet laden',
             currentPage: 'characters'
         });
     }
 });
 
-// Detail page for specific character
-router.get('/:id', async (req: Request<{ id: string }>, res: Response) => {
+// Laat alle info zien en andere teamleden
+router.get('/:id', async (req: Request, res: Response) => {
     try {
-        const character: Character | null = await dbService.getCharacterById(req.params.id);
+        const karakter = await dbService.vindKarakterOpId(req.params.id);
 
-        if (!character) {
+        if (!karakter) {
             return res.status(404).render('error', {
-                title: 'Character Not Found',
-                error: 'The requested character could not be found.',
+                title: 'Karakter niet gevonden',
+                error: 'Dit karakter bestaat niet.',
                 currentPage: 'characters'
             });
         }
 
-        // Find other characters in the same team
-        const teamMembers: Character[] = await dbService.getCharactersByTeamId(character.team.id);
-        const otherTeamMembers = teamMembers.filter(char => char.id !== character.id);
+        // filteren het huidige karakter eruit zodat je jezelf niet ziet
+        const teamGenoten = await dbService.haalKaraktersOpVanTeam(karakter.team.id);
+        const andereTeamleden = teamGenoten.filter(lid => lid.id !== karakter.id);
 
         res.render('characters/detail', {
-            title: `${character.name} - Character Details`,
-            character,
-            teamMembers: otherTeamMembers,
+            title: `${karakter.name} - Details`,
+            character: karakter,
+            teamMembers: andereTeamleden,
             currentPage: 'characters'
         });
     } catch (error) {
-        console.error('Error in character detail route:', error);
+        console.error('Fout bij laden karakter:', error);
         res.status(500).render('error', {
-            title: 'Error',
-            error: 'Failed to load character details',
+            title: 'Fout',
+            error: 'Kon karakter details niet laden',
             currentPage: 'characters'
         });
     }
 });
 
-// Edit form page
-router.get('/:id/edit', async (req: Request<{ id: string }>, res: Response) => {
+router.get('/:id/edit', vereistAdmin, async (req: Request, res: Response) => {
     try {
-        const character: Character | null = await dbService.getCharacterById(req.params.id);
-        const teams: any[] = await dbService.getAllTeams();
+        const karakter = await dbService.vindKarakterOpId(req.params.id);
+        const teams = await dbService.haalAlleTeamsOp(); // voor de dropdown
 
-        if (!character) {
+        if (!karakter) {
             return res.status(404).render('error', {
-                title: 'Character Not Found',
-                error: 'The requested character could not be found.',
+                title: 'Karakter niet gevonden',
+                error: 'Dit karakter bestaat niet.',
                 currentPage: 'characters'
             });
         }
 
         res.render('characters/edit', {
-            title: `Edit ${character.name}`,
-            character,
+            title: `${karakter.name} bewerken`,
+            character: karakter,
             teams,
             currentPage: 'characters'
         });
     } catch (error) {
-        console.error('Error loading edit form:', error);
+        console.error('Fout bij laden bewerkingsformulier:', error);
         res.status(500).render('error', {
-            title: 'Error',
-            error: 'Failed to load edit form',
+            title: 'Fout',
+            error: 'Kon bewerkingsformulier niet laden',
             currentPage: 'characters'
         });
     }
 });
 
-// Handle edit form submission
-router.post('/:id/edit', async (req: Request<{ id: string }>, res: Response) => {
+// Dit gebeurt als een admin het formulier indient
+router.post('/:id/edit', vereistAdmin, async (req: Request, res: Response) => {
     try {
         const { name, realName, age, isActive, affiliation } = req.body;
 
-        const updates: Partial<Character> = {
+        const updates = {
             name: name?.trim(),
             realName: realName?.trim(),
-            age: parseInt(age) || 0,
+            age: parseInt(age),
             isActive: isActive === 'true',
             affiliation: affiliation?.trim()
         };
 
-        // Remove undefined/empty values
         Object.keys(updates).forEach(key => {
-            if (updates[key as keyof Character] === undefined || updates[key as keyof Character] === '') {
-                delete updates[key as keyof Character];
+            if (!updates[key as keyof typeof updates]) {
+                delete updates[key as keyof typeof updates];
             }
         });
 
-        const success = await dbService.updateCharacter(req.params.id, updates);
+        const gelukt = await dbService.werkKarakterBij(req.params.id, updates);
 
-        if (success) {
-            res.redirect(`/characters/${req.params.id}?updated=true`);
+        if (gelukt) {
+            res.redirect(`/characters/${req.params.id}`);
         } else {
-            throw new Error('Failed to update character');
+            throw new Error('Update mislukt');
         }
     } catch (error) {
-        console.error('Error updating character:', error);
+        console.error('Fout bij karakter bijwerken:', error);
         res.status(500).render('error', {
-            title: 'Error',
-            error: 'Failed to update character',
+            title: 'Fout',
+            error: 'Kon karakter niet bijwerken',
             currentPage: 'characters'
         });
     }
 });
 
-// Helper function to sort characters in memory (for search results)
-async function sortCharacters(characters: Character[], sortBy: string, sortOrder: 'asc' | 'desc'): Promise<Character[]> {
-    return characters.sort((a: Character, b: Character) => {
-        let aVal: any = a[sortBy as keyof Character];
-        let bVal: any = b[sortBy as keyof Character];
+// Dit wordt gebruikt als we als we zoekresultaten moeten sorteren
+function sorteerKaracters(karakters: any[], sorteerVeld: string, sorteerRichting: 'asc' | 'desc') {
+    return karakters.sort((a, b) => {
+        let waardeA = sorteerVeld === 'team' ? a.team.name : a[sorteerVeld];
+        let waardeB = sorteerVeld === 'team' ? b.team.name : b[sorteerVeld];
 
-        // Handle nested team name sorting
-        if (sortBy === 'team') {
-            aVal = a.team.name;
-            bVal = b.team.name;
+        if (typeof waardeA === 'string') {
+            waardeA = waardeA.toLowerCase();
+            waardeB = waardeB.toLowerCase();
         }
 
-        // Handle string comparison
-        if (typeof aVal === 'string') {
-            aVal = aVal.toLowerCase();
-            bVal = bVal.toLowerCase();
+        if (sorteerRichting === 'desc') {
+            return waardeA < waardeB ? 1 : -1;
         }
-
-        if (sortOrder === 'desc') {
-            return aVal < bVal ? 1 : -1;
-        } else {
-            return aVal > bVal ? 1 : -1;
-        }
+        return waardeA > waardeB ? 1 : -1;
     });
 }
 

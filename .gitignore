@@ -50,3 +50,15 @@ Thumbs.db
 # Temporary folders
 tmp/
 temp/
+
+# Session store (if using file store)
+sessions/
+
+# SSL certificates
+*.pem
+*.crt
+*.key
+
+# Database dumps
+*.sql
+*.dump

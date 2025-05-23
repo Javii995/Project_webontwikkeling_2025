@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongodb';
+
 export interface Team {
     id: string;
     name: string;
@@ -23,7 +25,6 @@ export interface Character {
     team: Team;
 }
 
-// Query interfaces for type safety
 export interface CharacterQuery {
     search?: string;
     sortBy?: keyof Character | 'team';
@@ -35,9 +36,33 @@ export interface TeamQuery {
     sortOrder?: 'asc' | 'desc';
 }
 
-// Response interfaces
-export interface ApiResponse<T> {
-    success: boolean;
-    data?: T;
-    error?: string;
+// User types for database
+export interface UserDB {
+    _id?: ObjectId;
+    username: string;
+    password: string;
+    role: 'ADMIN' | 'USER';
+    createdAt?: Date;
+}
+
+// User types for application
+export interface User {
+    _id?: string;
+    username: string;
+    password: string;
+    role: 'ADMIN' | 'USER';
+    createdAt?: Date;
+}
+
+export interface UserSession {
+    userId: string;
+    username: string;
+    role: 'ADMIN' | 'USER';
+}
+
+// Extend Express session
+declare module 'express-session' {
+    interface SessionData {
+        user?: UserSession;
+    }
 }

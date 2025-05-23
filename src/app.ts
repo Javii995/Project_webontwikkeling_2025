@@ -1,88 +1,114 @@
 import dotenv from 'dotenv';
-import express, { Request, Response } from 'express';
+import express from 'express';
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
 import path from 'path';
-import { dbService } from './services/database';
 
-// Load environment variables
+// Environment variabelen laden
 dotenv.config();
 
-// Routes imports
+import { dbService } from './services/database';
+import { authService } from './services/auth';
+import { vereistInloggen, voegGebruikerToeAanViews } from './middleware/auth';
+
+import authRouter from './routes/auth';
 import charactersRouter from './routes/characters';
 import teamsRouter from './routes/teams';
 
 const app = express();
-const port: number = parseInt(process.env.PORT || '3000');
+const port = process.env.PORT || 3000;
 
-// Set EJS as template engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
 
-// CORS headers for development
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-});
-
-// Middleware
+// Middleware functies
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// Routes
-app.get('/', (req: Request, res: Response) => {
+//hierdoor onthoudt de browser dat je ingelogd bent
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'verander-dit-in-productie',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017',
+        dbName: 'marvel_rivals'
+    }),
+    cookie: {
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000
+    }
+}));
+
+// Hierdoor kunnen we in de navbar de gebruikersnaam laten zien
+app.use(voegGebruikerToeAanViews);
+
+
+app.use('/auth', authRouter);
+
+
+app.get('/', vereistInloggen, (req, res) => {
     res.render('index', {
         title: 'Marvel Rivals Dashboard',
         currentPage: 'home'
     });
 });
 
-app.use('/characters', charactersRouter);
-app.use('/teams', teamsRouter);
+app.use('/characters', vereistInloggen, charactersRouter);
+app.use('/teams', vereistInloggen, teamsRouter);
 
-// Error handling middleware
-app.use((req: Request, res: Response) => {
+app.get('/health', (req, res) => {
+    res.json({
+        status: 'OK',
+        timestamp: new Date(),
+        uptime: Math.floor(process.uptime())
+    });
+});
+
+//niet gevonden pagina
+app.use((req, res) => {
     res.status(404).render('error', {
-        title: 'Page Not Found',
-        error: 'The requested page could not be found.',
+        title: 'Pagina niet gevonden',
+        error: 'De pagina die je zoekt bestaat niet.',
         currentPage: ''
     });
 });
 
-// Initialize database and start server
-async function startServer() {
+async function startApp() {
     try {
-        // Connect to MongoDB
-        await dbService.connect();
+        console.log('App wordt opgestart...');
 
-        // Check if database has data, if not initialize it
-        if (!(await dbService.hasData())) {
-            console.log('📦 Database is empty, initializing with JSON data...');
-            await dbService.initializeData();
+        console.log('Database maakt verbinding...');
+        await dbService.verbindMetDatabase();
+
+        console.log('data controleren...');
+        if (!(await dbService.heeftData())) {
+            console.log('is leeg, data laden...');
+            await dbService.laadBeginData();
         } else {
-            console.log('✅ Database already has data, skipping initialization');
+            console.log('heeft al data');
         }
 
-        // Start server
+        console.log('Gebruikers instellen...');
+        await authService.maakStandaardGebruikersAan();
+
         app.listen(port, () => {
-            console.log(`🚀 Marvel Rivals app running at http://localhost:${port}`);
+            console.log(`Server is gestart op poort ${port}`);
+            console.log(`Ga naar http://localhost:${port} `);
+            console.log('Je kunt inloggen met admin/admin123 of user/user123');
         });
     } catch (error) {
-        console.error('❌ Failed to start server:', error);
+        console.error('App opstarten mislukt:', error);
         process.exit(1);
     }
 }
 
-// Handle graceful shutdown
 process.on('SIGINT', async () => {
-    console.log('\n🛑 Shutting down gracefully...');
-    await dbService.disconnect();
+    console.log('App wordt afgesloten...');
+    await dbService.sluitVerbinding();
     process.exit(0);
 });
 
-process.on('SIGTERM', async () => {
-    console.log('\n🛑 Shutting down gracefully...');
-    await dbService.disconnect();
-    process.exit(0);
-});
-
-startServer();
+startApp();
